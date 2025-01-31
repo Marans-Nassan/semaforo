@@ -20,11 +20,17 @@ void ledinit(){
   gpio_put(11, 1);
 }
 bool repeating_timer_callback(struct repeating_timer *t){
-  (gpio_get(11) == 1 && gpio_get(12) == 0 && gpio_get(13) == 0) ? (gpio_put(11, 0), gpio_put(12, 1)):(void)0;
-  (gpio_get(11) == 0 && gpio_get(12) == 1 && gpio_get(13) == 0) ? (gpio_put(12, 0), gpio_put(13, 1)):(void)0;
-  (gpio_get(11) == 0 && gpio_get(12) == 0 && gpio_get(13) == 1) ? (gpio_put(13, 0), gpio_put(11, 1)):(void)0;
-
-return true;
+  if (gpio_get(11) == 1 && gpio_get(12) == 0 && gpio_get(13) == 0){
+    gpio_put(11, 0);
+    gpio_put(12, 1);
+  } else if (gpio_get(11) == 0 && gpio_get(12) == 1 && gpio_get(13) == 0){
+    gpio_put(12, 0);
+    gpio_put(13, 1);
+  } else if (gpio_get(11) == 0 && gpio_get(12) == 0 && gpio_get(13) == 1){
+    gpio_put(13, 0);
+    gpio_put(11, 1);
+  }
+  return true;
 }
 
 int main() {
