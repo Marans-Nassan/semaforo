@@ -5,12 +5,10 @@
 #define led_y 12
 #define led_g 13
 
-uint8_t i;
-
 struct repeating_timer timer;
 
 void ledinit(){
-  for(i = 11; i < 14; i++){
+  for(uint8_t i = 11; i < 14; i++){
     gpio_init(i);
     gpio_set_dir(i, 1);
     gpio_put(i, 0);
@@ -36,7 +34,6 @@ int main() {
   ledinit();
   add_repeating_timer_ms(3000, repeating_timer_callback, NULL, &timer);
   while (true) {
-    i = (11, 12, 13);
         (gpio_get(11) == 1)? printf("Vermelho\n") : (void)0;
         (gpio_get(12) == 1)? printf("Amarelo\n") : (void)0;
         (gpio_get(13) == 1)? printf("Verde\n") : (void)0;
