@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
-#include "hardware/timer.h"
-#include "hardware/clocks.h"
 
 #define led_r 11
 #define led_y 12
@@ -38,6 +36,11 @@ int main() {
   ledinit();
   add_repeating_timer_ms(3000, repeating_timer_callback, NULL, &timer);
   while (true) {
-    sleep_ms(1);
+    i = (11, 12, 13);
+        (gpio_get(11) == 1)? printf("Vermelho\n") : (void)0;
+        (gpio_get(12) == 1)? printf("Amarelo\n") : (void)0;
+        (gpio_get(13) == 1)? printf("Verde\n") : (void)0;
+
+    sleep_ms(1000);
   }
 }
