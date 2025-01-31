@@ -3,28 +3,35 @@
 #include "hardware/timer.h"
 #include "hardware/clocks.h"
 
-int64_t alarm_callback(alarm_id_t id, void *user_data) {
-    // Put your timeout handler code in here
-    return 0;
+#define led_r 11
+#define led_y 12
+#define led_g 13
+
+uint8_t i;
+
+struct repeating_timer timer;
+
+void ledinit(){
+  for(i = 11; i < 14; i++){
+    gpio_init(i);
+    gpio_set_dir(i, 1);
+    gpio_put(i, 0);
+  }
+  gpio_put(11, 1);
+}
+bool repeating_timer_callback(struct repeating_timer *t){
+  (gpio_get(11) == 1 && gpio_get(12) == 0 && gpio_get(13) == 0) ? (gpio_put(11, 0), gpio_put(12, 1)):(void)0;
+  (gpio_get(11) == 0 && gpio_get(12) == 1 && gpio_get(13) == 0) ? (gpio_put(12, 0), gpio_put(13, 1)):(void)0;
+  (gpio_get(11) == 0 && gpio_get(12) == 0 && gpio_get(13) == 1) ? (gpio_put(13, 0), gpio_put(11, 1)):(void)0;
+
+return true;
 }
 
-
-
-
-int main()
-{
-    stdio_init_all();
-
-    // Timer example code - This example fires off the callback after 2000ms
-    add_alarm_in_ms(2000, alarm_callback, NULL, false);
-    // For more examples of timer use see https://github.com/raspberrypi/pico-examples/tree/master/timer
-
-    printf("System Clock Frequency is %d Hz\n", clock_get_hz(clk_sys));
-    printf("USB Clock Frequency is %d Hz\n", clock_get_hz(clk_usb));
-    // For more examples of clocks use see https://github.com/raspberrypi/pico-examples/tree/master/clocks
-
-    while (true) {
-        printf("Hello, world!\n");
-        sleep_ms(1000);
-    }
+int main() {
+  stdio_init_all();
+  ledinit();
+  add_repeating_timer_ms(3000, repeating_timer_callback, NULL, &timer);
+  while (true) {
+    sleep_ms(1);
+  }
 }
