@@ -38,7 +38,6 @@ O código é dividido nas seguintes partes:
   - Amarelo conectado ao GPIO 12
   - Verde conectado ao GPIO 13
 - **3 resistores de 330Ω** (um para cada LED)
-- **Protoboard e jumpers**
 
 ## Requisitos de Software
 - **SDK do Raspberry Pi Pico**
@@ -74,9 +73,7 @@ Verde
 
 ## Contribuidor
 
-Hugo Martins Santana
-
-Este projeto foi desenvolvido para estudo e aprendizado sobre GPIOs e timers no RP2040.
+Hugo Martins Santana (TIC370101267)
 
 ## Licença
 Este projeto é disponibilizado sob a licença MIT. Consulte o arquivo LICENSE para mais informações.
